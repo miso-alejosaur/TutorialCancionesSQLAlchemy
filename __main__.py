@@ -5,12 +5,53 @@ from src.modelo.declarative_base import Session, engine, Base
 
 if __name__ == '__main__':
    #Crea la BD
-   Base.metadata.create_all(engine)
+   #Base.metadata.create_all(engine)
 
    #Abre la sesion
    session = Session()
 
-   #crear interpretes
+   '''#delete
+   cancion = session.query(Cancion).get(2)
+   session.delete(cancion)
+   session.commit()
+   session.close()
+   '''
+   
+   '''#update
+   cancion = session.query(Cancion).get(2)
+   interprete = session.query(Interprete).get(4)
+
+   cancion.minutos = 5
+   cancion.segundos = 30
+   cancion.compositor = "Pedro Pérez"
+   cancion.interpretes.append(interprete)
+   session.add(cancion)
+   session.commit()
+   session.close()   
+   '''
+   
+   '''#consulta
+   canciones = session.query(Cancion).filter(Cancion.interpretes.contains(session.query(Interprete).filter(Interprete.nombre == "Aldo Gavilan").first())).all()
+
+   for cancion in canciones:
+      print("Titulo: " + cancion.titulo + " (00:" +
+            str(cancion.minutos) + ":" +
+            str(cancion.segundos) + ")")
+
+      print("Intérpretes")
+      for interprete in cancion.interpretes:
+          print(" - " + interprete.nombre)
+
+      for album in cancion.albumes:
+          print(" -- Presente en el album: " + album.titulo)
+
+      print("")
+
+   
+   session.close()
+   '''
+
+   '''#crear interpretes
    interprete1 = Interprete(nombre = "Samuel Torres", texto_curiosidades = "Es colombiano y vive en NY")
    interprete2 = Interprete(nombre = "Aldo Gavilan", texto_curiosidades = "Canto a Cuba")
    interprete3 = Interprete(nombre = "Buena Vista Social club")
@@ -47,4 +88,4 @@ if __name__ == '__main__':
    session.commit()
 
    session.commit()
-   session.close()
+   session.close()'''
